@@ -1,0 +1,6 @@
+server:
+  port: 8082
+
+ratelimiter:
+  defaultLimit: 4
+  duration : 1
