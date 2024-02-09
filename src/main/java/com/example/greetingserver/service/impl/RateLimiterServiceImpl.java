@@ -26,11 +26,11 @@ public class RateLimiterServiceImpl implements RateLimiterService {
     }
 
     public Bucket resolveBucket() {
-        Supplier<BucketConfiguration> configSupplier = getConfigSupplierForTenant(capacity);
+        Supplier<BucketConfiguration> configSupplier = getConfigSupplier(capacity);
         return buckets.builder().build("bucket",configSupplier);
     }
 
-    private Supplier<BucketConfiguration> getConfigSupplierForTenant(int capacity) {
+    private Supplier<BucketConfiguration> getConfigSupplier(int capacity) {
         Refill refill = Refill.intervally(capacity, Duration.ofMinutes(duration));
         Bandwidth limit = Bandwidth.classic(capacity, refill);
         return () -> (BucketConfiguration.builder()
